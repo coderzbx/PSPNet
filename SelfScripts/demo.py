@@ -37,18 +37,10 @@ class ModelSegNetDemo:
         input_image = np.asarray([input_image])
         self.net.forward_all(data=input_image)
 
-        predict = self.net.blobs['conv6_interp'].data
-        out_pred = np.resize(predict, (3, input_shape[2], input_shape[3]))
+        predict = self.net.blobs['conv6_interp'].data[0, :, :, :]
+        ind = np.argmax(predict, axis=0)
+        out_pred = np.resize(ind, (3, input_shape[2], input_shape[3]))
         out_pred = out_pred.transpose(1, 2, 0).astype(np.uint8)
-        for j in range(0, 713):
-            for k in range(0, 713):
-                x = -1
-                label = 0
-                for i in range(0, 19):
-                    if predict[0][i][j][k] > x:
-                        x = predict[0][i][j][k]
-                        label = i
-                out_pred[j][k][0] = out_pred[j][k][1] = out_pred[j][k][2] = label
         out_rgb = np.zeros(out_pred.shape, dtype=np.uint8)
 
         cv2.LUT(out_pred, label_colours, out_rgb)
