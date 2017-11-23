@@ -58,6 +58,8 @@ class ModelSegNetDemo:
 
 if __name__ == '__main__':
 
+    time1 = time.time()
+
     weights = ''
     model = ''
     colours = ''
@@ -176,3 +178,8 @@ if __name__ == '__main__':
 
                 with open(recog_path, 'wb') as w:
                     w.write(recog_data)
+
+    time2 = time.time()
+
+    print("finish in {} s\n".format(time2 - time1))
+
