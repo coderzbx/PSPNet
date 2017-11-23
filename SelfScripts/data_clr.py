@@ -29,3 +29,9 @@ cityscapes_19_label = {
     Label("motorcycle"       , 17, (0, 0, 230)),
     Label("bicycle"          , 18, (119, 11, 32))
 }
+
+if __name__ == '__main__':
+    print("{")
+    for l in cityscapes_19_label:
+        print('\'' + str(l.name) + "': " + str(l.color) + ",")
+    print("}")

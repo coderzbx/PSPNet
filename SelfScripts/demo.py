@@ -6,7 +6,7 @@ import time
 import argparse
 
 
-class ModelSegNetDemo:
+class ModelDemo:
     def __init__(self, model, weights, colours, gpu_id=3):
         os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
         caffe.set_mode_gpu()
@@ -65,9 +65,9 @@ if __name__ == '__main__':
     colours = ''
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, required=False)
-    parser.add_argument('--weights', type=str, required=False)
-    parser.add_argument('--colours', type=str, required=False)
+    parser.add_argument('--model', type=str, required=True)
+    parser.add_argument('--weights', type=str, required=True)
+    parser.add_argument('--colours', type=str, required=True)
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--file', type=str, required=False)
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     if args.gpu:
         gpu_id = args.gpu
 
-    seg_model = ModelSegNetDemo(model=model, weights=weights, colours=colours, gpu_id=gpu_id)
+    seg_model = ModelDemo(model=model, weights=weights, colours=colours, gpu_id=gpu_id)
 
     if procDir:
         result_dir = os.path.join(file_dir, 'pspnet')
